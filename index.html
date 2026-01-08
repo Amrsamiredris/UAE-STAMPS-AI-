@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Stamp Generator</title>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- QR Code Library (Local) -->
+    <script src="qrcode.min.js"></script>
+</head>
+
+<body>
+
+    <main class="container">
+        <header class="app-header">
+            <h1>AI Stamp Generator</h1>
+            <p class="subtitle">Create Your Vintage Philatelic Design</p>
+        </header>
+
+        <section class="input-section">
+            <form id="stampForm">
+                <div class="form-group">
+                    <label for="countryInput">Country or Event Name</label>
+                    <!-- "Country" often goes at the top or bottom of stamps, critical identifier -->
+                    <input type="text" id="countryInput" placeholder="e.g., Republic of Letters" required
+                        autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="titleInput">Stamp Title / Value</label>
+                    <input type="text" id="titleInput" placeholder="e.g., 50 Cents, First Flight" required
+                        autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="symbolInput">Main Symbol / Theme</label>
+                    <input type="text" id="symbolInput" placeholder="e.g., A soaring eagle, Steam Train" required
+                        autocomplete="off">
+                </div>
+
+                <button type="submit" class="primary-btn" id="generateBtn">
+                    Create Prompt
+                </button>
+            </form>
+        </section>
+
+        <!-- Output Section (Hidden initially) -->
+        <section id="outputSection" class="output-section hidden">
+            <div class="divider">
+                <span>&#10020;</span>
+            </div>
+
+            <h2>Generated Prompt</h2>
+            <p class="instruction">Use this prompt in Google AI Studio:</p>
+
+            <div class="textarea-wrapper">
+                <textarea id="promptOutput" readonly></textarea>
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" id="copyBtn" class="secondary-btn">
+                    <span class="icon">📋</span> Copy Prompt
+                </button>
+                <button type="button" id="openAiBtn" class="secondary-btn action-highlight">
+                    <span class="icon">✨</span> Open AI Studio
+                </button>
+            </div>
+
+            <div class="qr-container">
+                <h3>Design Code</h3>
+                <div id="qrcode"></div>
+                <p class="small-text">Scan to save prompt data</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
