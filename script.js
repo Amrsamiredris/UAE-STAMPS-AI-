@@ -49,7 +49,7 @@ Create a high-quality, vintage postage stamp design.
      */
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         // 1. Capture Inputs
         const country = document.getElementById('countryInput').value.trim();
         const title = document.getElementById('titleInput').value.trim();
@@ -66,7 +66,7 @@ Create a high-quality, vintage postage stamp design.
         // 3. Update UI
         promptOutput.value = finalPrompt;
         outputSection.classList.remove('hidden');
-        
+
         // Scroll to output for better UX
         outputSection.scrollIntoView({ behavior: 'smooth' });
 
@@ -91,7 +91,7 @@ Create a high-quality, vintage postage stamp design.
     function generateQRCode(text) {
         // Clear previous content
         qrContainer.innerHTML = '';
-        
+
         if (typeof QRCode === 'undefined') {
             qrContainer.innerHTML = '<p style="color:red;">QR Library Offline/Missing</p>';
             return;
@@ -101,14 +101,14 @@ Create a high-quality, vintage postage stamp design.
             // Encode the first 300 chars to keep QR readable/scannable on screens
             // Full prompt might be too dense for a quick scan, but let's try full first.
             const dataToEncode = text.length > 500 ? text.substring(0, 500) + '...' : text;
-            
+
             new QRCode(qrContainer, {
                 text: dataToEncode,
                 width: 128,
                 height: 128,
-                colorDark : "#2c3e50", // Match app accent
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.M
+                colorDark: "#2c3e50", // Match app accent
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
             });
         } catch (error) {
             console.error("QR Generation Error:", error);
@@ -145,12 +145,12 @@ Create a high-quality, vintage postage stamp design.
         // Copy first (convenience) then open
         // We replicate the copy logic here to ensure user has it ready to paste
         const promptText = promptOutput.value;
-        
+
         if (navigator.clipboard) {
-            navigator.clipboard.writeText(promptText).catch(() => {}); 
+            navigator.clipboard.writeText(promptText).catch(() => { });
         } else {
-             promptOutput.select();
-             document.execCommand('copy');
+            promptOutput.select();
+            document.execCommand('copy');
         }
 
         window.open('https://aistudio.google.com/app', '_blank');
@@ -163,10 +163,32 @@ Create a high-quality, vintage postage stamp design.
         const originalText = button.innerHTML;
         button.innerText = message;
         button.disabled = true;
-        
+
         setTimeout(() => {
             button.innerHTML = originalText;
             button.disabled = false;
         }, 1500);
     }
+
+    /**
+     * Reset Button Logic
+     */
+    const resetBtn = document.getElementById('resetBtn');
+
+    resetBtn.addEventListener('click', () => {
+        // 1. Clear all input fields
+        form.reset();
+
+        // 2. Hide the output section
+        outputSection.classList.add('hidden');
+
+        // 3. Clear the generated prompt text
+        promptOutput.value = '';
+
+        // 4. Remove the QR code
+        qrContainer.innerHTML = '';
+
+        // 5. Scroll back to the top of the page
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 });
